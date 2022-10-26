@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Services\LojaService;
+use App\Http\Services\LojaService;
 use App\Http\Resources\LojaResource;
 use App\Http\Requests\StoreLojaRequest;
 use App\Http\Requests\UpdateLojaRequest;
@@ -20,7 +20,7 @@ class LojaController extends Controller
     }
 
     public function index(){
-        return LojaResource::collection($this->lojaService->index());
+        return LojaResource::collection($this->lojaService->index())->response();
     }
 
     public function show($id){
@@ -32,11 +32,16 @@ class LojaController extends Controller
     }
 
     public function store(StoreLojaRequest $request){
-        $novaLoja = $this->lojaService->create($request->validated());
-        if(!$novaLoja){
-            return response()->json(['message' => 'Erro no cadastro da loja. Verifique os dados inseridos!'], 400);
+        $inputs = $request->validated();
+        if($inputs){
+            $novaLoja = $this->lojaService->create();
+
+            if(!$novaLoja){
+                return response()->json(['message' => 'Erro no cadastro da loja. Verifique os dados inseridos!'], 400);
+            }
+            return response()->json(['message' => 'Loja cadastrada com sucesso!'], 201);
         }
-        return response()->json(['message' => 'Loja cadastrada com sucesso!'], 201);
+        return response()->json(['message' => 'Erro na validação dos dados. Verifique os dados inseridos!'], 400);
     }
 
     public function update($id, UpdateStoreRequest $request){

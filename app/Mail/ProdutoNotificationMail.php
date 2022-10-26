@@ -13,11 +13,11 @@ class ProdutoNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $produtoNotification;
+    public $dadosEmail;
 
-    public function __construct($produtoNotification)
+    public function __construct($dadosEmail)
     {
-        $this->produtoNotification = $produtoNotification;
+        $this->dadosEmail = $dadosEmail;
     }
 
     /**
@@ -40,7 +40,7 @@ class ProdutoNotificationMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.created',
+            view: 'email.produto',
         );
     }
 

@@ -18,9 +18,9 @@ class ProdutoService{
         return Produto::create($data);
     }
 
-    public function update($id, Request $request){
+    public function update($id, $data){
         $produto = Produto::find($id);
-        return $produto->update($request->all());
+        return $produto->update($data);
     }
 
     public function delete($id){

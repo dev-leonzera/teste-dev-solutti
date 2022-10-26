@@ -13,7 +13,7 @@ class UpdateProdutoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,14 +29,5 @@ class UpdateProdutoRequest extends FormRequest
             'loja_id' => 'required|exists:lojas,id',
             'ativo' => 'required|boolean'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => $validator->errors(),
-            'status' => 'error',
-            'type' => 'validation'
-        ], 400));
     }
 }

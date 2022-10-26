@@ -13,7 +13,7 @@ class StoreLojaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,14 +27,5 @@ class StoreLojaRequest extends FormRequest
             'nome' => 'required|min:3|max:40',
             'email' => 'required|email|unique:App\Models\Loja,email'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => $validator->errors(),
-            'status' => 'error',
-            'type' => 'validation'
-        ], 400));
     }
 }
