@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Loja extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome_loja', 'email'];
+
+    public function produtos(){
+        return $this->hasMany(Produto::class);
+    }
 }
